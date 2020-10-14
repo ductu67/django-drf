@@ -1,0 +1,25 @@
+version: '3.3'
+
+services:
+  database:
+    container_name: mysql-local
+    image: mysql:5.7
+    environment:
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin123
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: project_manager
+    ports:
+      - "3306:3306"
+    restart: always
+
+  phpmyadmin:
+    container_name: phpmyadmin-local
+    image: phpmyadmin/phpmyadmin
+    links:
+      - database:db
+    depends_on:
+      - database
+    ports:
+      - "8211:80"
+    restart: always
